@@ -1,5 +1,9 @@
 <p>poke-list works!</p>
 
-@for (pokemon of pokemons; track $index) {
-<poke-card [name]="pokemon.name" [url]="pokemon.image" />
-}
+
+<div class="list-grid">
+  @for (pokemon of pokemons; track $index) {
+    <poke-card [name]="pokemon.name" [url]="pokemon.image" />
+    }
+</div>
+

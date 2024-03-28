@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { map } from 'rxjs';
+
 import { RequestService } from '../../services/request.service';
 import { ToolService } from '../../services/tools.service';
+
 import { PokeCardComponent } from './components/poke-card/poke-card.component';
-import {
-  Pokemon,
-  PokemonList,
-} from '../../interfaces/pokeListResponse.interface';
-import { map } from 'rxjs';
+
 import { getImageById } from '../../helpers/helpers';
+import { CustomPokemon, PokemonList } from '../../interfaces';
 
 @Component({
   selector: 'app-poke-list',
@@ -20,7 +20,7 @@ export default class PokeListComponent {
   public request = inject(RequestService);
   public tools = inject(ToolService);
 
-  public pokemons: Pokemon[] = [];
+  public pokemons: CustomPokemon[] = [];
 
   ngOnInit() {
     this.request

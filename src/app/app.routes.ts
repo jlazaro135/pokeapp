@@ -6,7 +6,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/poke-list/poke-list.component'),
   },
   {
-    path: 'poke-details',
+    path: 'poke-details/:id',
     loadComponent: () => import('./pages/poke-details/poke-details.component'),
   },
   { path: '**', redirectTo: 'poke-list' },

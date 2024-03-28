@@ -12,4 +12,8 @@ export class RequestService {
   getPokemons(): Observable<PokemonList> {
     return this.http.get<PokemonList>(`${this.baseUrl}/pokemon`);
   }
+
+  getPokemonByName(name: string): Observable<any> {
+    return this.http.get<PokemonList>(`${this.baseUrl}/pokemon/${name}`);
+  }
 }

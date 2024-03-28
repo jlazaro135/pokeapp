@@ -7,9 +7,7 @@ export interface PokemonList {
   results:  Pokemon[];
 }
 
-export interface Pokemon {
+interface Pokemon {
   name: string;
   url:  string;
-  image: string;
-  id: string;
 }
