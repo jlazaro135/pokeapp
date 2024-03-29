@@ -2,6 +2,6 @@
   <div>
     <img [src]="url" alt="{{ name }}-image" />
   </div>
-  <p>name: {{ name }}</p>
+  <p>name: {{ formattedName | titlecase }}</p>
   <a [routerLink]="['/poke-details/', name]">Detalles</a>
 </div>

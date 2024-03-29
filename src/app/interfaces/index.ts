@@ -1,2 +1,5 @@
-export * from './customPokemon.interface'
+export * from './PokeListTransformed.interface'
 export * from './pokeListResponse.interface'
+export * from './pokeDetailsResponse.interface'
+export * from './pokeData.interface'
+export * from './pokePagination.interface'

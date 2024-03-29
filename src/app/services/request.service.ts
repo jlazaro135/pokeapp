@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PokemonList } from '../interfaces/pokeListResponse.interface';
+import { PokeDetails, PokeListResponse } from '../interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class RequestService {
@@ -9,11 +9,11 @@ export class RequestService {
 
   public http = inject(HttpClient);
 
-  getPokemons(): Observable<PokemonList> {
-    return this.http.get<PokemonList>(`${this.baseUrl}/pokemon`);
+  getPokemons(): Observable<PokeListResponse> {
+    return this.http.get<PokeListResponse>(`${this.baseUrl}/pokemon?limit=-1`);
   }
 
-  getPokemonByName(name: string): Observable<any> {
-    return this.http.get<PokemonList>(`${this.baseUrl}/pokemon/${name}`);
+  getPokemonByName(name: string): Observable<PokeDetails> {
+    return this.http.get<PokeDetails>(`${this.baseUrl}/pokemon/${name}`);
   }
 }

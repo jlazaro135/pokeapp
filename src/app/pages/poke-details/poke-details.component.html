@@ -1,11 +1,26 @@
-<p>poke-details works!</p>
+<a [routerLink]="['/poke-list']">Back to pokemon list</a>
 
 <div class="details">
+  <div class="details__name">
+    {{ pokeData.name }}
+  </div>
   <div class="details__image">
-    <img src="" alt="">
+    <img src="{{ pokeData.image }}" alt="{{ pokeData.name }}" />
+  </div>
+  <div class="details__characteristics">
+    <span class="details__weight"> {{ pokeData.weight }} </span>
+    <span class="details__height"> {{ pokeData.height }} </span>
   </div>
   <div class="details__info-wrapper">
-    <div class="details__abilities"></div>
-    <div class="details__types"></div>
+    <ul class="details__abilities-list">
+      @for (abilityObj of pokeData.abilities; track $index) {
+      <li class="details__ability">{{ abilityObj.ability.name }}</li>
+      }
+    </ul>
+    <ul class="details__types">
+      @for (typeObj of pokeData.types; track $index) {
+      <li class="details__type">{{ typeObj.type.name }}</li>
+      }
+    </ul>
   </div>
 </div>
