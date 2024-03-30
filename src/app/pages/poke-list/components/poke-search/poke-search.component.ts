@@ -6,7 +6,7 @@ import { Subject, Subscription, debounceTime } from 'rxjs';
   standalone: true,
   imports: [],
   templateUrl: './poke-search.component.html',
-  styleUrl: './poke-search.component.scss',
+  styleUrl: './poke-search.component.css',
 })
 export class PokeSearchComponent implements OnInit, OnDestroy {
   @Output()

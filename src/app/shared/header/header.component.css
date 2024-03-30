@@ -1,0 +1,14 @@
+.header{
+  @apply dark:bg-dark bg-light p-2 border-b-2 border-b-secondary-dark;
+}
+.header-wrapper{
+  @apply max-w-[1380px] mx-auto flex justify-between items-center
+}
+
+.header__logo-wrapper{
+  width: 200px;
+}
+
+.header__logo{
+  width: 100%;
+}

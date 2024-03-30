@@ -1,0 +1,7 @@
+.pagination-info {
+  @apply flex justify-between my-3
+}
+
+.pagination-info__pages, .pagination-info__items{
+  @apply dark:text-light text-dark
+}

@@ -1,0 +1,24 @@
+<header class="header">
+  <div class="header-wrapper">
+    <div class="header__logo-wrapper">
+      <img src="assets/pokemon-logo.svg" alt="logo-pokemon" />
+    </div>
+
+    <div class="header__buttons-theme">
+      <button
+      (click)="handleClick()"
+      type="button"
+      class="group flex items-center text-gray-600 hover:text-blue-600 font-medium dark:text-gray-400 dark:hover:text-gray-500"
+      data-hs-theme-click-value="dark"
+      >
+      @if(darkMode){
+        <icon-dark />
+      }@else{
+        <icon-light />
+      }
+    </button>
+
+
+    </div>
+  </div>
+</header>

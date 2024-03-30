@@ -1,0 +1,11 @@
+.details__info-list-title{
+  @apply text-2xl font-semibold mb-4 text-dark dark:text-light;
+}
+
+.details__list{
+  @apply my-2 ps-3 space-y-4 text-left text-dark dark:text-light;
+}
+
+.details__list-item{
+  @apply flex items-center space-x-3 rtl:space-x-reverse text-xl;
+}

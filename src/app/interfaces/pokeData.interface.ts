@@ -1,26 +1,15 @@
+import { Ability, Stat, Type } from "./pokeDetailsResponse.interface";
+
 export interface PokeData {
   abilities:                Ability[];
   base_experience:          number;
-  height:                   number;
+  height:                   string;
   id:                       number;
   name:                     string;
+  formattedName:            string;
   types:                    Type[];
-  weight:                   number;
+  weight:                   string;
   image:                    string;
+  stats:                    Stat[];
 }
 
-interface Ability {
-  ability:   Species;
-  is_hidden: boolean;
-  slot:      number;
-}
-
-interface Species {
-  name: string;
-  url:  string;
-}
-
-interface Type {
-  slot: number;
-  type: Species;
-}

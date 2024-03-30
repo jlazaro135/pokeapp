@@ -1,26 +1,38 @@
-<a [routerLink]="['/poke-list']">Back to pokemon list</a>
 
-<div class="details">
-  <div class="details__name">
-    {{ pokeData.name }}
-  </div>
-  <div class="details__image">
-    <img src="{{ pokeData.image }}" alt="{{ pokeData.name }}" />
-  </div>
-  <div class="details__characteristics">
-    <span class="details__weight"> {{ pokeData.weight }} </span>
-    <span class="details__height"> {{ pokeData.height }} </span>
-  </div>
-  <div class="details__info-wrapper">
-    <ul class="details__abilities-list">
-      @for (abilityObj of pokeData.abilities; track $index) {
-      <li class="details__ability">{{ abilityObj.ability.name }}</li>
-      }
-    </ul>
-    <ul class="details__types">
-      @for (typeObj of pokeData.types; track $index) {
-      <li class="details__type">{{ typeObj.type.name }}</li>
-      }
-    </ul>
-  </div>
-</div>
+
+@if(!pokeData){
+  <poke-spinner />
+}@else{
+
+  <a class="details__back-button" [routerLink]="['/poke-list']"> Back to List</a>
+  <main class="details">
+    <section class="details__section details__section--image">
+      <div class="details__image-wrapper">
+        <img
+          class="details__image"
+          src="{{ pokeData.image }}"
+          alt="{{ pokeData.name }}"
+        />
+        <span class="details__weight">
+          <span class="details__weight-label"> {{ pokeData.weight }} kg. </span>
+        </span>
+
+        <span class="details__height"></span>
+
+        <span class="details__height-label"> {{ pokeData.height }} cm.</span>
+      </div>
+    </section>
+
+    <section class="details__section">
+      <h1 class="details__name">
+        {{ pokeData.formattedName | titlecase }}
+      </h1>
+      <div class="details__info-wrapper">
+        <poke-details-list title="abilities" [items]="pokeData.abilities"/>
+        <poke-details-list title="types" [items]="pokeData.types"/>
+        <poke-details-list title="stats" [items]="pokeData.stats"/>
+      </div>
+    </section>
+  </main>
+}
+

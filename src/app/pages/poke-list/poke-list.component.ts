@@ -1,3 +1,4 @@
+import { PokeEmptyListComponent } from './components/poke-empty-list/poke-empty-list.component';
 import { Component, inject, signal } from '@angular/core';
 import { map } from 'rxjs';
 
@@ -14,7 +15,8 @@ import {
 import {
   PokeCardComponent,
   PokeSearchComponent,
-  PokePaginationComponent,
+  PokePaginationButtonsComponent,
+  PokePagiantionInfoComponent,
 } from './components';
 
 import { getFormattedName, getImageById } from '../../helpers/helpers';
@@ -27,10 +29,12 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     PokeCardComponent,
     PokeSearchComponent,
-    PokePaginationComponent,
+    PokePaginationButtonsComponent,
+    PokePagiantionInfoComponent,
+    PokeEmptyListComponent
   ],
   templateUrl: './poke-list.component.html',
-  styleUrl: './poke-list.component.scss',
+  styleUrl: './poke-list.component.css',
 })
 export default class PokeListComponent {
   public request = inject(RequestService);
@@ -42,9 +46,10 @@ export default class PokeListComponent {
   public startItem: number = 0;
   public endItem!: number;
   public itemsToShow: CustomPokemon[] = [];
+  public searchTerm: string = '';
   public pagination = signal<PokePagination>({
     items: 0,
-    itemsPerPage: 200,
+    itemsPerPage: 10,
     pageNumber: 1,
     pages: 0,
     isFirstPage: true,
@@ -105,9 +110,12 @@ export default class PokeListComponent {
   }
 
   searchPokemon(searchTerm: string) {
+
+    this.searchTerm = searchTerm
+
     let searchTermToLowerCase = searchTerm.toLocaleLowerCase();
     this.filteredPokemons = this.originalPokemosData.filter((pokemon) =>
-      pokemon.name.includes(searchTermToLowerCase)
+      pokemon.formattedName.includes(searchTermToLowerCase)
     );
     let totalItems = this.filteredPokemons.length;
 
@@ -156,10 +164,8 @@ export default class PokeListComponent {
         pageNumber: prev.pageNumber + 1,
       }));
 
-      console.log(this.pagination().pageNumber);
       // se puede meter un multplicador para reutilizar funcion en ambos casos
-      this.startItem = this.startItem + this.pagination().itemsPerPage;
-      this.endItem = this.endItem + this.pagination().itemsPerPage;
+      this.updateItems(action);
       this.checkPageEdge(action);
 
       this.itemsToShow = this.getItemsPerPage(this.filteredPokemons);
@@ -171,8 +177,7 @@ export default class PokeListComponent {
       ...prev,
       pageNumber: prev.pageNumber - 1,
     }));
-    this.startItem = this.startItem - this.pagination().itemsPerPage;
-    this.endItem = this.endItem - this.pagination().itemsPerPage;
+    this.updateItems(action);
     this.checkPageEdge(action);
 
     this.itemsToShow = this.getItemsPerPage(this.filteredPokemons);
@@ -186,5 +191,12 @@ export default class PokeListComponent {
     }
 
     this.pagination().isFirstPage = this.startItem === 0;
+  }
+
+  updateItems(action: string) {
+    let multipler = action === 'next' ? 1 : -1;
+
+    this.startItem = this.startItem + this.pagination().itemsPerPage * multipler;
+    this.endItem = this.endItem + this.pagination().itemsPerPage * multipler;
   }
 }

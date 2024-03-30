@@ -1,0 +1,22 @@
+.poke-card {
+  @apply dark:bg-secondary-dark bg-secondary-light p-1 rounded-md border-4 border-yellow-600 text-center h-[100%];
+}
+
+.poke-card__name {
+  @apply dark:text-light text-dark text-2xl font-bold;
+}
+
+.poke-card__button {
+  @apply inline-block my-2 focus:outline-none text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900;
+}
+
+.poke-card__img-wrapper {
+  width: 100%;
+}
+
+.poke-card__img {
+  aspect-ratio: 1/1;
+  width: 100%;
+  max-width: 150px;
+  margin: auto;
+}

@@ -1,7 +1,9 @@
-<div>
-  <div>
-    <img [src]="url" alt="{{ name }}-image" />
+<div class="poke-card">
+  <div class="poke-card__img-wrapper">
+    <img class="poke-card__img" [src]="url" alt="{{ name }}-image" />
   </div>
-  <p>name: {{ formattedName | titlecase }}</p>
-  <a [routerLink]="['/poke-details/', name]">Detalles</a>
+  <p class="poke-card__name">{{ formattedName | titlecase }}</p>
+  <a class="poke-card__button" [routerLink]="['/poke-details/', name]"
+    >Details</a
+  >
 </div>

@@ -3,8 +3,7 @@
 </div>
 
 <div class="list-filter">
-  <span>{{ pagination().pageNumber }} / {{ pagination().pages }} </span>
-  <span> {{ pagination().items }} </span>
+  <poke-pagiantion-info [pagination]="pagination()" />
 </div>
 
 <div class="list-grid">
@@ -14,12 +13,19 @@
     [name]="pokemon.name"
     [url]="pokemon.image"
   />
+  }@empty{
+    <poke-empty-list
+    [searchTerm]="searchTerm"
+    />
   }
 </div>
 
-<div class="list-pagination">
-  <poke-pagination
-    (actionToTake)="handleAction($event)"
-    [pagination]="pagination()"
-  />
-</div>
+@if(pokemons().length > 0){
+  <div class="list-pagination">
+    <poke-pagination-buttons
+      (actionToTake)="handleAction($event)"
+      [pagination]="pagination()"
+    />
+  </div>
+}
+

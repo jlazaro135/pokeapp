@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './poke-card.component.html',
-  styleUrl: './poke-card.component.scss'
+  styleUrl: './poke-card.component.css'
 })
 export class PokeCardComponent {
   @Input() name!: string;

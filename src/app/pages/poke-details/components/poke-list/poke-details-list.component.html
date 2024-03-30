@@ -1,0 +1,15 @@
+<h3 class="details__info-list-title"> {{ title | titlecase}} </h3>
+<ul class="details__list">
+  @for (item of items; track $index) {
+  <li class="details__list-item">
+    <icon-pokeball />
+    <span>
+      {{ item.item.name | titlecase }}
+      @if(isStat(item)){
+        <span class="font-bold"> -> {{ item.base_stat }} </span>
+      }
+    </span>
+  </li>
+  }
+</ul>
+

@@ -1,27 +1,22 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { PokePagination } from '../../../../interfaces';
-
-
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PokePagination } from '../../../../../interfaces';
 
 @Component({
-  selector: 'poke-pagination',
+  selector: 'poke-pagination-buttons',
   standalone: true,
   imports: [],
-  templateUrl: './poke-pagination.component.html',
-  styleUrl: './poke-pagination.component.scss',
+  templateUrl: './poke-pagination-buttons.component.html',
+  styleUrl: './poke-pagination-buttons.component.css',
 })
-export class PokePaginationComponent {
+export class PokePaginationButtonsComponent {
   @Input() cardsToShow!: number;
   @Input() pagination!: PokePagination;
   @Output() actionToTake = new EventEmitter<string>();
 
-
   public isFirstPage!: boolean;
   public isLastPage!: boolean;
 
-  OnInit(){
-
-    
+  OnInit() {
     this.isFirstPage = this.pagination.isFirstPage;
     this.isLastPage = this.pagination.isLastPage;
   }
@@ -29,7 +24,4 @@ export class PokePaginationComponent {
   showCards(action: string) {
     this.actionToTake.emit(action);
   }
-
-
-
 }

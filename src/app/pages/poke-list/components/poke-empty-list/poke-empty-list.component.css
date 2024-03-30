@@ -1,0 +1,12 @@
+:host{
+  grid-column: 1/-1;
+  text-align: center
+}
+
+.list-empty__img{
+  margin: auto;
+}
+
+.list-empty__description{
+  @apply dark:text-white text-dark text-2xl
+}

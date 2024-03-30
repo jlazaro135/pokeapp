@@ -1,7 +1,11 @@
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<main class="dark:bg-dark bg-light min-h-[100vh]">
+  <app-header
+  [darkMode]="darkMode$()"
+  (setTheme)="setTheme($event)"
+  />
 
-<a [routerLink]="['/poke-list']" routerLinkActive="router-link-active">List</a>
-<a [routerLink]="['/poke-details']" routerLinkActive="router-link-active"
-  >details</a
->
-<router-outlet></router-outlet>
+  <section class="main">
+    <router-outlet></router-outlet>
+  </section>
+</main>
+

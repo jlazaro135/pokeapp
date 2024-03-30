@@ -23,6 +23,7 @@ export interface PokeDetails {
 }
 
 export interface Ability {
+  item:      Species;
   ability:   Species;
   is_hidden: boolean;
   slot:      number;
@@ -171,9 +172,11 @@ export interface Stat {
   base_stat: number;
   effort:    number;
   stat:      Species;
+  item:      Species;
 }
 
 export interface Type {
-  slot: number;
-  type: Species;
+  slot:   number;
+  type:   Species;
+  item:   Species;
 }
