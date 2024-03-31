@@ -11,5 +11,4 @@ import { PokePagination } from '../../../../../interfaces';
 export class PokePagiantionInfoComponent {
   @Input() pagination!: PokePagination
 
-  
 }

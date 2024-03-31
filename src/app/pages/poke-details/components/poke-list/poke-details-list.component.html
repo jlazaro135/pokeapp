@@ -4,7 +4,7 @@
   <li class="details__list-item">
     <icon-pokeball />
     <span>
-      {{ item.item.name | titlecase }}
+      {{ item.item?.name | titlecase }}
       @if(isStat(item)){
         <span class="font-bold"> -> {{ item.base_stat }} </span>
       }

@@ -1,0 +1,11 @@
+.error {
+  text-align: center;
+}
+
+.error__status {
+  @apply dark:text-light text-dark text-9xl mb-4;
+}
+
+.error__message {
+  @apply dark:text-light text-dark text-2xl;
+}

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { PokeData } from '../../interfaces';
+import { PokeData, PokeDetails } from '../../interfaces';
 import { convertHeightToCm, convertWeightToKg, getFormattedName, getImageById } from '../../helpers/helpers';
 import { CommonModule } from '@angular/common';
 import { PokeDetailsListComponent } from './components/poke-list/poke-details-list.component';
@@ -28,40 +28,15 @@ export default class PokeDetailsComponent {
   public route = inject(ActivatedRoute);
 
   ngOnInit() {
+    this.initPokeDetails()
+  }
+
+  initPokeDetails(){
     this.pokeName = this.route.snapshot.params['name'];
 
     this.request.getPokemonByName(this.pokeName)
     .pipe(
-      map((response) => {
-
-       let abilities = response.abilities.map((ability) => {
-        return {
-          ...ability,
-          item: ability.ability
-        }
-       })
-
-       let types = response.types.map((type) => {
-        return {
-          ...type,
-          item: type.type
-        }
-       })
-
-       let stats = response.stats.map((stat) => {
-        return {
-          ...stat,
-          item: stat.stat
-        }
-       })
-
-       return {
-        ...response,
-        abilities,
-        types,
-        stats
-       }
-      }),
+      map((response) => this.transformReponse(response)),
       delay(1000)
     )
     .subscribe((response) => {
@@ -83,4 +58,36 @@ export default class PokeDetailsComponent {
 
     });
   }
+
+  transformReponse(response: PokeDetails){
+    let abilities = response.abilities.map((ability) => {
+      return {
+        ...ability,
+        item: ability.ability
+      }
+    })
+
+    let types = response.types.map((type) => {
+      return {
+        ...type,
+        item: type.type
+      }
+    })
+
+    let stats = response.stats.map((stat) => {
+      return {
+        ...stat,
+        item: stat.stat
+      }
+    })
+
+    return {
+      ...response,
+      abilities,
+      types,
+      stats
+    }
+
+  }
+
 }

@@ -19,7 +19,7 @@
 }
 
 .details__name {
-  @apply text-5xl font-bold pb-4 dark:text-light text-dark underline;
+  @apply text-5xl font-bold pb-4 dark:text-light text-dark uppercase;
 }
 
 .details__image {
