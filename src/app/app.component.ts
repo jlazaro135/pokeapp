@@ -17,12 +17,8 @@ export class AppComponent {
     return this.darkMode()
   }
 
-  setDarkMode(darkMode: boolean) {
+  setDarkMode(darkMode: boolean):void {
     this.darkMode.set(darkMode);
-  }
-
-  setTheme(event: boolean){
-    this.darkMode.set(event);
   }
 
   ngOnInit(){

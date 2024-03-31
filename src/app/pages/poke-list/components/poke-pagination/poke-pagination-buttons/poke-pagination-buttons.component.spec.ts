@@ -21,4 +21,17 @@ describe('PokePaginationButtonsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit the correct action when showCards is called', () => {
+    // Arrange
+    const action = 'next';
+    let emittedAction: 'next' | 'previous' = 'next';
+    component.actionToTake.subscribe((value: 'next' | 'previous') => (emittedAction = value));
+
+    // Act
+    component.showCards(action);
+
+    // Assert
+    expect(emittedAction).toEqual(action);
+  });
 });

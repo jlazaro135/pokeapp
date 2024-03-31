@@ -20,5 +20,14 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('Poke App');
   });
 
+  it('setDarkMode should set a boolean value', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    const darkModeValue = true;
+    app.setDarkMode(darkModeValue)
+
+    expect(app.darkMode$()).toBe(darkModeValue)
+  })
 
 });

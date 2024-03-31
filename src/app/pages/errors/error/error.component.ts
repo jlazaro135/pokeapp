@@ -22,9 +22,7 @@ export default class ErrorComponent {
     this.initErrorView();
   }
 
-
   initErrorView(){
-    console.log(this.request.errorMessage)
     this.errorMessage = this.request.errorMessage
     if(!this.errorMessage) this.router.navigateByUrl('/')
   }

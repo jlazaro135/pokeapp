@@ -20,4 +20,16 @@ describe('PokeDetailsListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return true if the item isStat', () => {
+    // Arrange
+    const item = { base_stat: 100, effort: 0, stat: { name: 'hp', url: 'https://pokeapi.co/api/v2/stat/1/' } };
+
+    // Act
+    const result = component.isStat(item);
+
+    // Assert
+    expect(result).toBe(true);
+  });
+
 });

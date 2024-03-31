@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PokePagination } from '../../../../../interfaces';
 
+type action = 'next' | 'previous'
+
 @Component({
   selector: 'poke-pagination-buttons',
   standalone: true,
@@ -21,7 +23,7 @@ export class PokePaginationButtonsComponent {
     this.isLastPage = this.pagination.isLastPage;
   }
 
-  showCards(action: string) {
+  showCards(action: action) {
     this.actionToTake.emit(action);
   }
 }

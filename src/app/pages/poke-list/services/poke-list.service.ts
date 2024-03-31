@@ -1,31 +1,40 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { CustomPokemon, PokeListResponse, PokeListTransformed, PokePagination } from '../../../interfaces';
-import { getFormattedName, getImageById, scrollToTop } from '../../../helpers/helpers';
+import {
+  CustomPokemon,
+  PokeListResponse,
+  PokeListTransformed,
+  PokePagination,
+} from '../../../interfaces';
+import {
+  getFormattedName,
+  getImageById,
+  scrollToTop,
+} from '../../../helpers/helpers';
 import { dataService } from '../../../services/data.service';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class PokeListService {
   public data = inject(dataService);
 
   public pokemons = signal<CustomPokemon[]>([]);
   public pagination = signal<PokePagination>(this.data.paginationData);
-  public searchTerm = signal<string>('')
+  public searchTerm = signal<string>('');
   public originalPokemosData: CustomPokemon[] = [];
   public filteredPokemons: CustomPokemon[] = [];
   public startItem: number = 0;
   public endItem!: number;
   public itemsToShow: CustomPokemon[] = [];
 
-  loadData(response: PokeListTransformed | undefined, pagination: PokePagination) {
-    if(!response) return
+  loadData(
+    response: PokeListTransformed | undefined,
+    pagination: PokePagination
+  ) {
+    if (!response) return;
 
     const { results, count } = response;
-    const { itemsPerPage } = pagination
+    const { itemsPerPage } = pagination;
 
-    const pages = this.calculateItemsPerPage(
-      count,
-      itemsPerPage
-    );
+    const pages = this.calculateTotalPages(count, itemsPerPage);
 
     this.pagination.set({
       ...pagination,
@@ -41,20 +50,15 @@ export class PokeListService {
     this.itemsToShow = this.getItemsPerPage(this.originalPokemosData);
 
     this.pokemons.set(this.itemsToShow);
-
   }
 
-  setDataFromApi(response: PokeListTransformed){
+  setDataFromApi(response: PokeListTransformed) {
     this.data.listData.set(response);
-    this.setData(response)
+    this.setData(response);
   }
 
-  setData(response: PokeListTransformed | undefined){
-    this.loadData(
-      response,
-      this.pagination()
-    );
-
+  setData(response: PokeListTransformed | undefined) {
+    this.loadData(response, this.pagination());
   }
 
   updateResultWithImage(response: PokeListResponse): PokeListTransformed {
@@ -74,7 +78,7 @@ export class PokeListService {
     };
   }
 
-  calculateItemsPerPage(totalItems: number, itemsPerPage: number): number {
+  calculateTotalPages(totalItems: number, itemsPerPage: number): number {
     return Math.ceil(totalItems / itemsPerPage);
   }
 
@@ -94,7 +98,7 @@ export class PokeListService {
     this.startItem = 0;
     this.endItem = this.pagination().itemsPerPage;
 
-    this.pagination().pages = this.calculateItemsPerPage(
+    this.pagination().pages = this.calculateTotalPages(
       totalItems,
       this.pagination().itemsPerPage
     );
@@ -151,16 +155,13 @@ export class PokeListService {
 
   searchPokemon(searchTerm: string) {
     let searchTermToLowerCase = searchTerm.toLocaleLowerCase();
-    this.filteredPokemons =
-      this.originalPokemosData.filter((pokemon) =>
-        pokemon.formattedName.includes(searchTermToLowerCase)
-      );
+    this.filteredPokemons = this.originalPokemosData.filter((pokemon) =>
+      pokemon.formattedName.includes(searchTermToLowerCase)
+    );
     let totalItems = this.filteredPokemons.length;
 
     this.resetPagination(totalItems);
-    this.itemsToShow = this.getItemsPerPage(
-      this.filteredPokemons
-    );
+    this.itemsToShow = this.getItemsPerPage(this.filteredPokemons);
 
     this.pokemons.set(this.itemsToShow);
   }
@@ -168,5 +169,4 @@ export class PokeListService {
   handleAction(action: string) {
     this.updatePagination(action);
   }
-
 }

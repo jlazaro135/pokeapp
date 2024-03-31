@@ -12,8 +12,8 @@ export class PokeSearchComponent implements OnInit, OnDestroy {
   @Output()
   public onDebounce = new EventEmitter<string>()
 
-  private debouncer: Subject<string> = new Subject();
-  private debouncerSuscription?: Subscription;
+  public debouncer: Subject<string> = new Subject();
+  public debouncerSuscription?: Subscription;
 
   ngOnInit() {
     this.debouncerSuscription = this.debouncer
@@ -27,7 +27,7 @@ export class PokeSearchComponent implements OnInit, OnDestroy {
     if (this.debouncerSuscription) this.debouncerSuscription.unsubscribe();
   }
 
-  onInput(searchTerm: string) {
+  onInput(searchTerm: string ) {
     this.debouncer.next(searchTerm);
   }
 }
