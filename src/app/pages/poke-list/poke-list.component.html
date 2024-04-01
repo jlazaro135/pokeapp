@@ -1,6 +1,6 @@
 @if(dataIsLoaded()){
   <div class="list-search max-w-[400px]">
-    <poke-search (onDebounce)="searchPokemon($event)" />
+    <poke-search [value]="searchTerm().term" (onDebounce)="searchPokemon($event)" />
   </div>
 
   <div class="list-filter">
@@ -15,7 +15,7 @@
       [url]="pokemon.image"
     />
     }@empty{
-    <poke-empty-list [searchTerm]="searchTerm()" />
+    <poke-empty-list [searchTerm]="searchTerm().term" />
     }
   </div>
 

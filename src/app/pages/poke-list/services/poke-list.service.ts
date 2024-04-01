@@ -8,7 +8,6 @@ import {
 import {
   getFormattedName,
   getImageById,
-  scrollToTop,
 } from '../../../helpers/helpers';
 import { dataService } from '../../../services/data.service';
 
@@ -42,13 +41,12 @@ export class PokeListService {
       pages: pages,
     });
 
-    this.endItem = itemsPerPage;
+    this.endItem = this.startItem + itemsPerPage;
 
     this.originalPokemosData = [...results];
     this.filteredPokemons = [...this.originalPokemosData];
 
     this.itemsToShow = this.getItemsPerPage(this.originalPokemosData);
-
     this.pokemons.set(this.itemsToShow);
   }
 
@@ -151,6 +149,7 @@ export class PokeListService {
     this.startItem =
       this.startItem + this.pagination().itemsPerPage * multipler;
     this.endItem = this.endItem + this.pagination().itemsPerPage * multipler;
+    console.log(this.startItem, this.endItem)
   }
 
   searchPokemon(searchTerm: string) {

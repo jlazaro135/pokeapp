@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, computed, inject, signal } from '@angular/core';
+import { Component, ElementRef, computed, effect, inject, signal } from '@angular/core';
 import { delay, map } from 'rxjs';
 
 import { RequestService } from '../../services/request.service';
@@ -37,9 +37,15 @@ export default class PokeListComponent {
   public data = inject(dataService);
   public pokeListService = inject(PokeListService);
 
-  elementRef: ElementRef = inject(ElementRef)
+  elementRef: ElementRef = inject(ElementRef);
 
-  searchTerm = signal<string>('');
+  // searchTerm = signal<string>('');
+  searchTerm = computed(() => {
+    return {
+      isTerm: Boolean(this.pokeListService.searchTerm()),
+      term: this.pokeListService.searchTerm()
+    }
+  });
   dataIsLoaded = computed(() => Boolean(this.data.listData()));
   pagination = computed(() => this.pokeListService.pagination());
   pokemons = computed(() => this.pokeListService.pokemons());
@@ -48,9 +54,12 @@ export default class PokeListComponent {
     this.initPokemonList();
   }
 
+
   initPokemonList() {
-    if (this.dataIsLoaded())
-      return this.pokeListService.setData(this.data.listData());
+    if (this.dataIsLoaded()) {
+      this.getCurrentStatusData();
+      return
+    }
 
     this.request
       .getPokemons()
@@ -58,16 +67,26 @@ export default class PokeListComponent {
         map((response) => this.pokeListService.updateResultWithImage(response)),
         delay(900)
       )
-      .subscribe((response) => this.pokeListService.setDataFromApi(response));
+      .subscribe((response) => {
+
+        this.pokeListService.setDataFromApi(response)
+      });
+  }
+
+  getCurrentStatusData(){
+    this.pokeListService.setData(this.data.listData());
+    if(this.searchTerm().isTerm){
+      this.searchPokemon(this.searchTerm().term)
+    }
   }
 
   searchPokemon(searchTerm: string) {
-    this.searchTerm.set(searchTerm);
+    this.pokeListService.searchTerm.set(searchTerm);
     this.pokeListService.searchPokemon(searchTerm);
   }
 
   handleAction(action: string) {
-    scrollToTop(this.elementRef)
+    scrollToTop(this.elementRef);
     this.pokeListService.handleAction(action);
   }
 }
