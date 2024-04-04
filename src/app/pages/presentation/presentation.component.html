@@ -1,0 +1,10 @@
+<main class="dark:bg-dark bg-light min-h-[100vh]">
+  <app-header
+  [darkMode]="darkMode$()"
+  (setTheme)="setDarkMode($event)"
+  />
+
+  <section class="main">
+    <router-outlet></router-outlet>
+  </section>
+</main>
