@@ -1,24 +1,22 @@
-import { Component, HostBinding, computed, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/header/header.component';
+import { Component, HostBinding, computed, inject, signal } from '@angular/core';
+import { PokePresentationComponent } from './pages/presentation/presentation.component';
+import { dataService } from './services/data.service';
+import { ThemeDirective } from './directives/theme.directive';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, HeaderComponent],
+  imports: [PokePresentationComponent, ThemeDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  private darkMode = signal<boolean>(false);
-  readonly darkMode$ = computed(() => this.darkMode());
+  public data = inject(dataService)
 
-  @HostBinding('class.dark') get mode() {
-    return this.darkMode()
-  }
+  readonly darkMode$ = computed(() => this.data.darkMode());
 
   setDarkMode(darkMode: boolean):void {
-    this.darkMode.set(darkMode);
+    this.data.darkMode.set(darkMode);
   }
 
   ngOnInit(){
