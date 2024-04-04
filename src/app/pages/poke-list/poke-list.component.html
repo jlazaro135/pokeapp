@@ -1,14 +1,14 @@
-@if(dataIsLoaded()){
+@if(dataIsLoaded$()){
   <div class="list-search max-w-[400px]">
     <poke-search [value]="searchTerm().term" (onDebounce)="searchPokemon($event)" />
   </div>
 
   <div class="list-filter">
-    <poke-pagiantion-info [pagination]="pagination()" />
+    <poke-pagiantion-info [pagination]="pagination$()" />
   </div>
 
   <div class="list-grid">
-    @for (pokemon of pokemons(); track pokemon.id) {
+    @for (pokemon of pokemons$(); track pokemon.id) {
     <poke-card
       [formattedName]="pokemon.formattedName"
       [name]="pokemon.name"
@@ -19,11 +19,11 @@
     }
   </div>
 
-  @if(pokemons().length > 0){
+  @if(pokemons$().length > 0){
   <div class="list-pagination">
     <poke-pagination-buttons
       (actionToTake)="handleAction($event)"
-      [pagination]="pagination()"
+      [pagination]="pagination$()"
     />
   </div>
 }

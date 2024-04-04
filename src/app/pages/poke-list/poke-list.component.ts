@@ -46,9 +46,9 @@ export default class PokeListComponent {
       term: this.pokeListService.searchTerm()
     }
   });
-  dataIsLoaded = computed(() => Boolean(this.data.listData()));
-  pagination = computed(() => this.pokeListService.pagination());
-  pokemons = computed(() => this.pokeListService.pokemons());
+  readonly dataIsLoaded$ = computed(() => Boolean(this.data.listData()));
+  readonly pagination$ = computed(() => this.pokeListService.pagination());
+  readonly pokemons$ = computed(() => this.pokeListService.pokemons());
 
   ngOnInit() {
     this.initPokemonList();
@@ -56,7 +56,7 @@ export default class PokeListComponent {
 
 
   initPokemonList() {
-    if (this.dataIsLoaded()) {
+    if (this.dataIsLoaded$()) {
       this.getCurrentStatusData();
       return
     }

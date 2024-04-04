@@ -5,10 +5,7 @@ import {
   PokeListTransformed,
   PokePagination,
 } from '../../../interfaces';
-import {
-  getFormattedName,
-  getImageById,
-} from '../../../helpers/helpers';
+import { getFormattedName, getImageById } from '../../../helpers/helpers';
 import { dataService } from '../../../services/data.service';
 
 @Injectable({ providedIn: 'root' })
@@ -103,29 +100,20 @@ export class PokeListService {
   }
 
   updatePagination(action: string) {
+    if (action === 'next') {
+      this.updateFromAction(action, 1);
+      return;
+    }
+
+    this.updateFromAction(action, -1);
+  }
+
+  updateFromAction(action: string, value: number) {
     this.pagination.update((prev) => ({
       ...prev,
       isLastPage: false,
       isFirstPage: false,
-    }));
-
-    if (action === 'next') {
-      this.pagination.update((prev) => ({
-        ...prev,
-        pageNumber: prev.pageNumber + 1,
-      }));
-
-      this.updateItems(action);
-      this.checkPageEdge(action);
-
-      this.itemsToShow = this.getItemsPerPage(this.filteredPokemons);
-      this.pokemons.set(this.itemsToShow);
-      return;
-    }
-
-    this.pagination.update((prev) => ({
-      ...prev,
-      pageNumber: prev.pageNumber - 1,
+      pageNumber: prev.pageNumber + value * 1,
     }));
     this.updateItems(action);
     this.checkPageEdge(action);
@@ -149,7 +137,6 @@ export class PokeListService {
     this.startItem =
       this.startItem + this.pagination().itemsPerPage * multipler;
     this.endItem = this.endItem + this.pagination().itemsPerPage * multipler;
-    console.log(this.startItem, this.endItem)
   }
 
   searchPokemon(searchTerm: string) {

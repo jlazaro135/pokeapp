@@ -8,11 +8,11 @@ export class dataService {
   setDarkMode(darkMode: boolean): void {
     this.darkMode.set(darkMode);
   }
-  
+
   public listData = signal<PokeListTransformed | undefined>(undefined)
   public paginationData: PokePagination = {
     items: 0,
-    itemsPerPage: 10,
+    itemsPerPage: 20,
     pageNumber: 1,
     pages: 0,
     isFirstPage: true,
